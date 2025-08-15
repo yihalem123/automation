@@ -153,10 +153,6 @@ export default function HowItWorks() {
                       initial={{ opacity: 0, scale: 0 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ 
-                        duration: 0.5, 
-                        delay: 0.8 + index * 0.2 + dotIndex * 0.1 
-                      }}
                       animate={{
                         scale: [1, 1.3, 1],
                         opacity: [1, 0.6, 1]
@@ -164,7 +160,11 @@ export default function HowItWorks() {
                       transition={{
                         duration: 2,
                         repeat: Infinity,
-                        delay: dotIndex * 0.2
+                        delay: dotIndex * 0.2,
+                        initial: {
+                          duration: 0.5, 
+                          delay: 0.8 + index * 0.2 + dotIndex * 0.1 
+                        }
                       }}
                     />
                   ))}
