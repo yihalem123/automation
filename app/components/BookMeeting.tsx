@@ -224,65 +224,85 @@ const BookMeeting = () => {
                 </h3>
               </div>
 
-              {/* Mock Calendar Interface */}
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Select Date
-                  </label>
-                  <div className="glass-card p-4 rounded-xl">
-                    <div className="grid grid-cols-7 gap-2 text-center text-sm">
-                      {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                        <div key={day} className="text-gray-400 font-medium py-2">
-                          {day}
-                        </div>
-                      ))}
-                      {Array.from({ length: 35 }, (_, i) => {
-                        const day = i - 6
-                        const isCurrentMonth = day > 0 && day <= 30
-                        const isSelected = day === 15
-                        return (
-                          <motion.button
-                            key={i}
-                            whileHover={isCurrentMonth ? { scale: 1.1 } : {}}
-                            className={`w-8 h-8 rounded-lg text-sm transition-all ${
-                              isSelected
-                                ? 'bg-gradient-to-r from-neon-blue to-neon-purple text-white'
-                                : isCurrentMonth
-                                ? 'text-gray-300 hover:bg-white/10'
-                                : 'text-gray-600'
-                            }`}
-                          >
-                            {isCurrentMonth ? day : ''}
-                          </motion.button>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </div>
+                             {/* Mock Calendar Interface */}
+               <div className="space-y-6">
+                 <div>
+                   <label className={`block text-sm font-medium mb-2 transition-colors duration-300 ${
+                     theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                   }`}>
+                     Select Date
+                   </label>
+                   <div className={`p-4 rounded-xl transition-all duration-300 ${
+                     theme === 'dark'
+                       ? 'bg-gray-700/50 border border-gray-600/50'
+                       : 'bg-white/80 border border-gray-200/50'
+                   }`}>
+                     <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                       {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                         <div key={day} className={`font-medium py-2 transition-colors duration-300 ${
+                           theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                         }`}>
+                           {day}
+                         </div>
+                       ))}
+                       {Array.from({ length: 35 }, (_, i) => {
+                         const day = i - 6
+                         const isCurrentMonth = day > 0 && day <= 30
+                         const isSelected = day === 15
+                         return (
+                           <motion.button
+                             key={i}
+                             whileHover={isCurrentMonth ? { scale: 1.05 } : {}}
+                             className={`w-8 h-8 rounded-lg text-sm transition-all ${
+                               isSelected
+                                 ? theme === 'dark'
+                                   ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg'
+                                   : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg'
+                                 : isCurrentMonth
+                                 ? theme === 'dark'
+                                   ? 'text-gray-300 hover:bg-gray-600/50'
+                                   : 'text-gray-700 hover:bg-gray-100/50'
+                                 : theme === 'dark'
+                                   ? 'text-gray-600'
+                                   : 'text-gray-400'
+                             }`}
+                           >
+                             {isCurrentMonth ? day : ''}
+                           </motion.button>
+                         )
+                       })}
+                     </div>
+                   </div>
+                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Available Times
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {timeSlots.map((slot, index) => (
-                      <motion.button
-                        key={index}
-                        whileHover={slot.available ? { scale: 1.05 } : {}}
-                        whileTap={slot.available ? { scale: 0.95 } : {}}
-                        disabled={!slot.available}
-                        className={`p-3 rounded-xl text-sm font-medium transition-all ${
-                          slot.available
-                            ? 'glass-card text-white hover:bg-white/10'
-                            : 'bg-gray-800 text-gray-500 cursor-not-allowed'
-                        }`}
-                      >
-                        {slot.time}
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
+                                 <div>
+                   <label className={`block text-sm font-medium mb-2 transition-colors duration-300 ${
+                     theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                   }`}>
+                     Available Times
+                   </label>
+                   <div className="grid grid-cols-2 gap-3">
+                     {timeSlots.map((slot, index) => (
+                       <motion.button
+                         key={index}
+                         whileHover={slot.available ? { scale: 1.05 } : {}}
+                         whileTap={slot.available ? { scale: 0.95 } : {}}
+                         disabled={!slot.available}
+                         className={`p-3 rounded-xl text-sm font-medium transition-all ${
+                           slot.available
+                             ? theme === 'dark'
+                               ? 'bg-gray-700/80 hover:bg-gray-700/90 text-white border border-gray-600/50 hover:border-cyan-400/50 hover:shadow-lg'
+                               : 'bg-white/80 hover:bg-white/90 text-gray-900 border border-gray-200/50 hover:border-blue-400/50 hover:shadow-lg'
+                             : theme === 'dark'
+                               ? 'bg-gray-800/50 text-gray-500 cursor-not-allowed border border-gray-700/30'
+                               : 'bg-gray-100/50 text-gray-400 cursor-not-allowed border border-gray-200/30'
+                         }`}
+                       >
+                         {slot.time}
+                       </motion.button>
+                     ))}
+                   </div>
+                 </div>
 
                 {/* Contact Form */}
                 <div className="space-y-4">
@@ -347,9 +367,11 @@ const BookMeeting = () => {
                   </span>
                 </motion.button>
 
-                <p className="text-xs text-gray-400 text-center">
-                  You'll receive a calendar invite with meeting details after booking.
-                </p>
+                                 <p className={`text-xs text-center transition-colors duration-300 ${
+                   theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                 }`}>
+                   You'll receive a calendar invite with meeting details after booking.
+                 </p>
               </div>
             </div>
 
