@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { MessageSquare, Cog, Workflow, BarChart3, ArrowRight } from 'lucide-react'
+import { useTheme } from '../contexts/ThemeContext'
 
 export default function WhatWeDo() {
+  const { theme } = useTheme()
+  
   const services = [
     {
       icon: MessageSquare,
@@ -62,7 +65,9 @@ export default function WhatWeDo() {
   }
 
   return (
-    <section id="services" className="py-24 relative">
+    <section id="services" className={`py-24 relative transition-colors duration-500 ${
+      theme === 'dark' ? 'bg-gray-900/50' : 'bg-white/50'
+    }`}>
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -71,10 +76,14 @@ export default function WhatWeDo() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-poppins theme-text mb-6">
+          <h2 className={`text-4xl md:text-5xl font-bold font-poppins mb-6 transition-colors duration-300 ${
+            theme === 'dark' ? 'text-white' : 'theme-text'
+          }`}>
             What We Do
           </h2>
-          <p className="text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
+          <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+            theme === 'dark' ? 'text-gray-300' : 'secondary-text'
+          }`}>
             We provide comprehensive AI automation solutions that transform how your business operates, 
             from marketing and operations to custom workflows and intelligent insights.
           </p>
@@ -92,7 +101,11 @@ export default function WhatWeDo() {
               key={index}
               variants={itemVariants}
               whileHover={{ scale: 1.02, y: -5 }}
-              className={`bright-card p-6 rounded-2xl glass-card-hover group relative ${service.bgColor}`}
+              className={`p-6 rounded-2xl glass-card-hover group relative transition-all duration-300 ${
+                theme === 'dark' 
+                  ? 'bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20' 
+                  : `bright-card ${service.bgColor}`
+              }`}
             >
               {/* Icon */}
               <div className={`w-14 h-14 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
@@ -100,12 +113,16 @@ export default function WhatWeDo() {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-white mb-3 font-poppins">
+              <h3 className={`text-xl font-bold mb-3 font-poppins transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'dark-text'
+              }`}>
                 {service.title}
               </h3>
 
               {/* Description */}
-              <p className="text-slate-200 mb-4 leading-relaxed text-sm">
+              <p className={`mb-4 leading-relaxed text-sm transition-colors duration-300 ${
+                theme === 'dark' ? 'text-gray-300' : 'secondary-text'
+              }`}>
                 {service.description}
               </p>
 
@@ -113,8 +130,10 @@ export default function WhatWeDo() {
               <div className="space-y-2 mb-4">
                 {service.features.map((feature, featureIndex) => (
                   <div key={featureIndex} className="flex items-center space-x-3">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
-                    <span className="text-slate-300 text-sm font-medium">{feature}</span>
+                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                    <span className={`text-sm font-medium transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-gray-400' : 'gray-text'
+                    }`}>{feature}</span>
                   </div>
                 ))}
               </div>
@@ -122,7 +141,11 @@ export default function WhatWeDo() {
               {/* Learn More */}
               <motion.button
                 whileHover={{ x: 3 }}
-                className="flex items-center space-x-2 accent-text font-medium group-hover:text-blue-300 transition-colors duration-300"
+                className={`flex items-center space-x-2 font-medium transition-colors duration-300 ${
+                  theme === 'dark' 
+                    ? 'text-cyan-400 group-hover:text-cyan-300' 
+                    : 'accent-text group-hover:text-blue-700'
+                }`}
               >
                 <span>Learn More</span>
                 <ArrowRight className="w-4 h-4" />

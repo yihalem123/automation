@@ -1,150 +1,211 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { Shield, Zap, Target, Users, Award, Clock } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
+import { 
+  ShieldCheck, 
+  Zap, 
+  Users, 
+  TrendingUp,
+  CheckCircle,
+  Star,
+  Award,
+  Clock
+} from 'lucide-react';
 
-export default function WhyChooseUs() {
+const WhyChooseUs = () => {
+  const { theme } = useTheme();
+
   const stats = [
     {
-      number: '500+',
-      label: 'Automations Delivered',
-      icon: Award,
-      color: 'from-neon-blue to-neon-cyan',
+      icon: ShieldCheck,
+      number: "99.9%",
+      label: "Uptime Guarantee",
+      description: "Reliable automation that never stops working"
     },
     {
-      number: '80%',
-      label: 'Faster Operations',
       icon: Zap,
-      color: 'from-neon-purple to-neon-pink',
-    },
-    {
-      number: '10k+',
-      label: 'Hours Saved',
-      icon: Clock,
-      color: 'from-neon-cyan to-neon-blue',
-    },
-  ]
-
-  const benefits = [
-    {
-      icon: Shield,
-      title: 'Reliability',
-      description: 'Enterprise-grade security and 99.9% uptime guarantee for all automation systems.',
-    },
-    {
-      icon: Target,
-      title: 'Customization',
-      description: 'Tailored solutions designed specifically for your business processes and requirements.',
+      number: "10x",
+      label: "Faster Operations",
+      description: "Dramatically reduce manual work time"
     },
     {
       icon: Users,
-      title: 'Expert Support',
-      description: '24/7 dedicated support team with automation specialists ready to help.',
+      number: "500+",
+      label: "Happy Clients",
+      description: "Trusted by businesses worldwide"
     },
-  ]
+    {
+      icon: TrendingUp,
+      number: "85%",
+      label: "Cost Reduction",
+      description: "Significant savings on operational costs"
+    }
+  ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+  const reasons = [
+    {
+      icon: CheckCircle,
+      title: "Proven Expertise",
+      description: "5+ years of automation experience with Fortune 500 companies",
+      color: "from-green-500 to-emerald-600"
     },
-  }
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
+    {
+      icon: Star,
+      title: "Custom Solutions",
+      description: "Tailored automation workflows designed specifically for your business",
+      color: "from-yellow-500 to-orange-500"
     },
-  }
+    {
+      icon: Award,
+      title: "24/7 Support",
+      description: "Round-the-clock technical support and monitoring",
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: Clock,
+      title: "Quick Implementation",
+      description: "Get your automation up and running in days, not months",
+      color: "from-blue-500 to-cyan-500"
+    }
+  ];
 
   return (
-    <section className="py-24 relative">
+    <section id="why-choose-us" className={`py-24 relative transition-colors duration-500 overflow-hidden ${
+      theme === 'dark' 
+        ? 'bg-gradient-to-br from-slate-800 via-gray-800 to-slate-900' 
+        : 'bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100'
+    }`}>
+      
+      {/* Simple Professional Background */}
+      <div className="absolute inset-0">
+        {/* Subtle Accent Lines */}
+        <div className={`absolute top-0 left-0 w-full h-px ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent' 
+            : 'bg-gradient-to-r from-transparent via-blue-500/20 to-transparent'
+        }`} />
+        <div className={`absolute bottom-0 left-0 w-full h-px ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-r from-transparent via-blue-500/30 to-transparent' 
+            : 'bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent'
+        }`} />
+      </div>
+
       <div className="container mx-auto px-6">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-poppins gradient-text mb-6">
+          <h2 className={`text-4xl md:text-5xl font-bold font-poppins mb-4 transition-colors duration-300 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
             Why Choose Us
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            We deliver proven results with reliable, customized automation solutions 
-            backed by expert support and cutting-edge technology.
+          
+          <div className={`w-24 h-1 mx-auto rounded-full mb-6 transition-colors duration-300 ${
+            theme === 'dark' 
+              ? 'bg-gradient-to-r from-cyan-400 to-blue-500' 
+              : 'bg-gradient-to-r from-blue-500 to-indigo-500'
+          }`} />
+          
+          <p className={`text-lg max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            We deliver exceptional automation solutions with unmatched reliability, 
+            customization, and support that transforms your business operations.
           </p>
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats Section */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8 mb-16"
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="glass-card p-8 rounded-3xl text-center glass-card-hover group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
+              className={`p-6 rounded-2xl text-center transition-all duration-500 group ${
+                theme === 'dark' 
+                  ? 'bg-gray-800/80 backdrop-blur-md border border-gray-700/50 hover:bg-gray-800/90 hover:border-cyan-400/50' 
+                  : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:bg-white/90 hover:border-blue-400/50'
+              }`}
             >
-              <div className={`w-16 h-16 bg-gradient-to-r ${stat.color} rounded-2xl flex items-center justify-center mx-auto mb-6 glow-effect group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${
+                theme === 'dark' 
+                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600' 
+                  : 'bg-gradient-to-r from-blue-500 to-blue-600'
+              }`}>
                 <stat.icon className="w-8 h-8 text-white" />
               </div>
               
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2, type: 'spring', stiffness: 100 }}
-                className="text-4xl md:text-5xl font-bold gradient-text mb-2"
-              >
+              <div className={`text-3xl font-bold mb-2 transition-colors duration-300 ${
+                theme === 'dark' ? 'text-cyan-400' : 'text-blue-600'
+              }`}>
                 {stat.number}
-              </motion.div>
+              </div>
               
-              <div className="text-gray-300 font-medium">
+              <div className={`font-semibold mb-2 transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
                 {stat.label}
+              </div>
+              
+              <div className={`text-sm transition-colors duration-300 ${
+                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                {stat.description}
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Benefits */}
+        {/* Reasons Section */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8"
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {benefits.map((benefit, index) => (
+          {reasons.map((reason, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              whileHover={{ y: -5 }}
-              className="text-center"
+              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
+              className={`p-8 rounded-2xl transition-all duration-500 group hover:scale-105 ${
+                theme === 'dark' 
+                  ? 'bg-gray-800/80 backdrop-blur-md border border-gray-700/50 hover:bg-gray-800/90 hover:border-cyan-400/50' 
+                  : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:bg-white/90 hover:border-blue-400/50'
+              }`}
             >
-              <div className="w-20 h-20 glass-card rounded-3xl flex items-center justify-center mx-auto mb-6">
-                <benefit.icon className="w-10 h-10 text-neon-cyan" />
+              <div className={`w-16 h-16 mb-6 rounded-2xl flex items-center justify-center bg-gradient-to-r ${reason.color}`}>
+                <reason.icon className="w-8 h-8 text-white" />
               </div>
               
-              <h3 className="text-xl font-bold text-white mb-4 font-poppins">
-                {benefit.title}
+              <h3 className={`text-xl font-bold mb-4 transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                {reason.title}
               </h3>
               
-              <p className="text-gray-300 leading-relaxed">
-                {benefit.description}
+              <p className={`leading-relaxed transition-colors duration-300 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                {reason.description}
               </p>
             </motion.div>
           ))}
@@ -152,30 +213,27 @@ export default function WhyChooseUs() {
 
         {/* CTA Section */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.6 }}
           className="text-center mt-16"
         >
-          <div className="glass-card p-8 md:p-12 rounded-3xl max-w-4xl mx-auto">
-            <h3 className="text-3xl md:text-4xl font-bold gradient-text mb-6">
-              Ready to Transform Your Business?
-            </h3>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Join hundreds of businesses that have already automated their way to success. 
-              Let's discuss how we can help you achieve your automation goals.
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary px-8 py-4 rounded-xl text-white font-semibold text-lg glow-effect"
-            >
-              Start Your Automation Journey
-            </motion.button>
-          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 ${
+              theme === 'dark'
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-2xl hover:shadow-cyan-500/25'
+                : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-xl hover:shadow-blue-500/25'
+            }`}
+          >
+            Start Your Automation Journey
+          </motion.button>
         </motion.div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default WhyChooseUs;

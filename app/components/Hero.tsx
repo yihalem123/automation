@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight, Play, Sparkles, Zap, Bot } from 'lucide-react'
+import { useTheme } from '../contexts/ThemeContext'
 
 export default function Hero() {
+  const { theme } = useTheme()
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -35,10 +38,22 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Modern Light Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 via-transparent to-indigo-400/5 animate-gradient" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08)_0%,transparent_80%)]" />
+      {/* Adaptive Background */}
+      <div className={`absolute inset-0 transition-colors duration-500 ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-br from-gray-950 via-gray-900 to-black' 
+          : 'bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'
+      }`}>
+        <div className={`absolute inset-0 transition-colors duration-500 ${
+          theme === 'dark'
+            ? 'bg-gradient-to-r from-blue-500/10 via-transparent to-purple-500/10 animate-gradient'
+            : 'bg-gradient-to-r from-blue-400/5 via-transparent to-indigo-400/5 animate-gradient'
+        }`} />
+        <div className={`absolute inset-0 transition-colors duration-500 ${
+          theme === 'dark'
+            ? 'bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.15)_0%,transparent_80%)]'
+            : 'bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08)_0%,transparent_80%)]'
+        }`} />
       </div>
 
       {/* Floating Icons */}
@@ -59,8 +74,14 @@ export default function Hero() {
           }}
           className={`absolute ${position} hidden lg:block`}
         >
-          <div className="w-16 h-16 bright-card rounded-2xl flex items-center justify-center">
-            <Icon className="w-8 h-8 text-blue-600" />
+          <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+            theme === 'dark' 
+              ? 'bg-white/10 backdrop-blur-md border border-white/20' 
+              : 'bright-card'
+          }`}>
+            <Icon className={`w-8 h-8 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-cyan-400' : 'text-blue-700'
+            }`} />
           </div>
         </motion.div>
       ))}
@@ -75,10 +96,18 @@ export default function Hero() {
           {/* Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center space-x-2 bright-card px-6 py-3 rounded-full mb-8"
+            className={`inline-flex items-center space-x-2 px-6 py-3 rounded-full mb-8 transition-all duration-300 ${
+              theme === 'dark' 
+                ? 'bg-white/10 backdrop-blur-md border border-white/20' 
+                : 'bright-card'
+            }`}
           >
-            <Sparkles className="w-4 h-4 text-blue-600" />
-            <span className="text-sm dark-text font-medium">
+            <Sparkles className={`w-4 h-4 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-cyan-400' : 'text-blue-700'
+            }`} />
+            <span className={`text-sm font-medium transition-colors duration-300 ${
+              theme === 'dark' ? 'text-white' : 'dark-text'
+            }`}>
               AI-Powered Automation Solutions
             </span>
           </motion.div>
@@ -88,18 +117,26 @@ export default function Hero() {
             variants={itemVariants}
             className="text-5xl md:text-6xl lg:text-7xl font-bold font-poppins mb-6 leading-tight"
           >
-            <span className="theme-text">Automate Everything.</span>
+            <span className={`transition-colors duration-300 ${
+              theme === 'dark' ? 'text-cyan-400' : 'theme-text'
+            }`}>Automate Everything.</span>
             <br />
-            <span className="dark-text">Grow Faster.</span>
+            <span className={`transition-colors duration-300 ${
+              theme === 'dark' ? 'text-white' : 'dark-text'
+            }`}>Grow Faster.</span>
           </motion.h1>
 
           {/* Subheading */}
-          <motion.p
+                    <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl gray-text mb-12 max-w-3xl mx-auto leading-relaxed"
+            className={`text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+              theme === 'dark' ? 'text-gray-300' : 'secondary-text'
+            }`}
           >
             We help businesses automate marketing, digital operations, and custom workflows with AI. 
-            <span className="accent-text font-semibold"> Transform your processes, boost efficiency, and scale without limits.</span>
+            <span className={`font-semibold transition-colors duration-300 ${
+              theme === 'dark' ? 'text-cyan-300' : 'accent-text'
+            }`}> Transform your processes, boost efficiency, and scale without limits.</span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -116,14 +153,14 @@ export default function Hero() {
               <ArrowRight className="w-5 h-5" />
             </motion.button>
             
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-secondary px-8 py-4 rounded-xl text-white font-semibold text-lg flex items-center space-x-2"
-            >
-              <Play className="w-5 h-5" />
-              <span>See How We Can Help</span>
-            </motion.button>
+                         <motion.button
+               whileHover={{ scale: 1.05, y: -2 }}
+               whileTap={{ scale: 0.95 }}
+               className="btn-secondary px-8 py-4 rounded-xl font-semibold text-lg flex items-center space-x-2"
+             >
+               <Play className="w-5 h-5" />
+               <span>See How We Can Help</span>
+             </motion.button>
           </motion.div>
 
           {/* Stats */}
@@ -139,12 +176,20 @@ export default function Hero() {
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.05 }}
-                className="bright-card p-6 rounded-2xl text-center glass-card-hover"
+                                className={`p-6 rounded-2xl text-center transition-all duration-300 ${
+                  theme === 'dark' 
+                    ? 'bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20' 
+                    : 'bright-card glass-card-hover'
+                }`}
               >
-                <div className="text-3xl font-bold theme-text mb-2">
+                <div className={`text-3xl font-bold mb-2 transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-cyan-400' : 'theme-text'
+                }`}>
                   {stat.number}
                 </div>
-                <div className="gray-text font-medium text-sm">
+                <div className={`font-medium text-sm transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-gray-300' : 'secondary-text'
+                }`}>
                   {stat.label}
                 </div>
               </motion.div>
@@ -160,13 +205,19 @@ export default function Hero() {
         transition={{ delay: 2 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1"
-        >
-          <div className="w-1 h-3 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full" />
-        </motion.div>
+                 <motion.div
+           animate={{ y: [0, 10, 0] }}
+           transition={{ duration: 2, repeat: Infinity }}
+           className={`w-6 h-10 border-2 rounded-full flex justify-center p-1 transition-colors duration-300 ${
+             theme === 'dark' ? 'border-cyan-400/50' : 'border-gray-400/50'
+           }`}
+         >
+           <div className={`w-1 h-3 rounded-full transition-colors duration-300 ${
+             theme === 'dark' 
+               ? 'bg-gradient-to-b from-cyan-400 to-cyan-500' 
+               : 'bg-gradient-to-b from-blue-500 to-blue-600'
+           }`} />
+         </motion.div>
       </motion.div>
     </section>
   )
