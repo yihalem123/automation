@@ -1,9 +1,11 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { Linkedin, ExternalLink, Users, TrendingUp, MessageCircle } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
+import { Linkedin, ExternalLink, Users, TrendingUp, MessageCircle, ArrowRight, Star, Zap } from 'lucide-react';
 
-export default function LinkedInSection() {
+const LinkedInSection = () => {
+  const { theme } = useTheme();
   const linkedInPosts = [
     {
       type: 'article',
@@ -47,19 +49,50 @@ export default function LinkedInSection() {
   ]
 
   return (
-    <section className="py-24 relative">
+    <section id="linkedin" className={`py-24 relative transition-colors duration-500 overflow-hidden ${
+      theme === 'dark' 
+        ? 'bg-gradient-to-br from-slate-800 via-gray-800 to-slate-900' 
+        : 'bg-gradient-to-br from-slate-100 via-blue-100 to-slate-200'
+    }`}>
+      
+      {/* Simple Professional Background */}
+      <div className="absolute inset-0">
+        {/* Subtle Accent Lines */}
+        <div className={`absolute top-0 left-0 w-full h-px ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent' 
+            : 'bg-gradient-to-r from-transparent via-blue-500/20 to-transparent'
+        }`} />
+        <div className={`absolute bottom-0 left-0 w-full h-px ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-r from-transparent via-blue-500/30 to-transparent' 
+            : 'bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent'
+        }`} />
+      </div>
+
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-poppins gradient-text mb-6">
+          <h2 className={`text-4xl md:text-5xl font-bold font-poppins mb-4 transition-colors duration-300 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
             Connect with Us on LinkedIn
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          
+          <div className={`w-24 h-1 mx-auto rounded-full mb-6 transition-colors duration-300 ${
+            theme === 'dark' 
+              ? 'bg-gradient-to-r from-cyan-400 to-blue-500' 
+              : 'bg-gradient-to-r from-blue-500 to-indigo-500'
+          }`} />
+          
+          <p className={`text-lg max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Follow our journey, get automation insights, and connect with our community 
             of business leaders who are transforming their operations with AI.
           </p>
@@ -73,12 +106,18 @@ export default function LinkedInSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="glass-card p-8 rounded-3xl">
+            <div className={`p-8 rounded-3xl transition-all duration-500 ${
+              theme === 'dark' 
+                ? 'bg-gray-800/80 backdrop-blur-md border border-gray-700/50 hover:bg-gray-800/90 hover:border-cyan-400/50 shadow-xl hover:shadow-2xl' 
+                : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:bg-white/90 hover:border-blue-400/50 shadow-lg hover:shadow-xl'
+            }`}>
               <div className="flex items-center space-x-3 mb-8">
-                <div className="w-10 h-10 bg-gradient-to-r from-[#0077B5] to-[#0A66C2] rounded-lg flex items-center justify-center">
-                  <Linkedin className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0077B5] to-[#0A66C2] rounded-2xl flex items-center justify-center shadow-lg">
+                  <Linkedin className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white font-poppins">
+                <h3 className={`text-2xl font-bold font-poppins transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
                   Latest Updates
                 </h3>
               </div>
@@ -91,29 +130,56 @@ export default function LinkedInSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
-                    className="glass-card p-6 rounded-2xl glass-card-hover cursor-pointer"
+                    whileHover={{ scale: 1.03, y: -5 }}
+                    className={`p-6 rounded-2xl cursor-pointer transition-all duration-500 group overflow-hidden ${
+                      theme === 'dark' 
+                        ? 'bg-gray-700/60 backdrop-blur-md border border-gray-600/30 hover:bg-gray-700/80 hover:border-cyan-400/50' 
+                        : 'bg-white/60 backdrop-blur-sm border border-gray-200/30 hover:bg-white/80 hover:border-blue-400/50'
+                    }`}
                   >
-                    <div className="flex items-start space-x-3 mb-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex-shrink-0" />
+                    <div className="flex items-start space-x-3 mb-4">
+                      <div className={`w-10 h-10 rounded-full flex-shrink-0 ${
+                        theme === 'dark' 
+                          ? 'bg-gradient-to-r from-cyan-500 to-blue-600' 
+                          : 'bg-gradient-to-r from-blue-500 to-blue-600'
+                      }`} />
                       <div className="flex-1">
-                        <div className="text-white font-semibold text-sm">AutomateAI</div>
-                        <div className="text-gray-400 text-xs">{post.timeAgo}</div>
+                        <div className={`font-semibold text-sm transition-colors duration-300 ${
+                          theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        }`}>AutomateAI</div>
+                        <div className={`text-xs transition-colors duration-300 ${
+                          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                        }`}>{post.timeAgo}</div>
                       </div>
-                      <ExternalLink className="w-4 h-4 text-gray-400" />
+                      <ExternalLink className={`w-4 h-4 transition-colors duration-300 ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                      }`} />
                     </div>
                     
-                    <h4 className="text-white font-semibold mb-2 leading-snug">
+                    <h4 className={`font-semibold mb-3 leading-snug transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
                       {post.title}
                     </h4>
                     
-                    <p className="text-gray-300 text-sm mb-3 leading-relaxed">
+                    <p className={`text-sm mb-4 leading-relaxed transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
                       {post.excerpt}
                     </p>
                     
-                    <div className="text-gray-400 text-xs">
+                    <div className={`text-xs transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    }`}>
                       {post.engagement}
                     </div>
+                    
+                    {/* Hover effect overlay */}
+                    <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+                      theme === 'dark' 
+                        ? 'bg-gradient-to-br from-cyan-400/5 to-blue-400/5' 
+                        : 'bg-gradient-to-br from-blue-50/50 to-indigo-50/50'
+                    }`} />
                   </motion.div>
                 ))}
               </div>
@@ -122,12 +188,17 @@ export default function LinkedInSection() {
                 href="https://linkedin.com/company/your-company"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05, y: -2 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full btn-secondary mt-6 py-3 rounded-xl text-white font-semibold flex items-center justify-center space-x-2"
+                className={`w-full mt-6 py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-gray-700/80 hover:bg-gray-700/90 text-white border border-gray-600/50 hover:border-cyan-400/50'
+                    : 'bg-white/80 hover:bg-white/90 text-gray-900 border border-gray-200/50 hover:border-blue-400/50'
+                }`}
               >
                 <Linkedin className="w-5 h-5" />
                 <span>View All Posts</span>
+                <ArrowRight className="w-4 h-4" />
               </motion.a>
             </div>
           </motion.div>
@@ -141,8 +212,14 @@ export default function LinkedInSection() {
             className="space-y-8"
           >
             {/* Stats */}
-            <div className="glass-card p-8 rounded-3xl">
-              <h3 className="text-2xl font-bold text-white mb-6 font-poppins">
+            <div className={`p-8 rounded-3xl transition-all duration-500 ${
+              theme === 'dark' 
+                ? 'bg-gray-800/80 backdrop-blur-md border border-gray-700/50 hover:bg-gray-800/90 hover:border-cyan-400/50 shadow-xl hover:shadow-2xl' 
+                : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:bg-white/90 hover:border-blue-400/50 shadow-lg hover:shadow-xl'
+            }`}>
+              <h3 className={`text-2xl font-bold mb-6 font-poppins transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
                 Our LinkedIn Community
               </h3>
               <div className="grid grid-cols-3 gap-6">
@@ -155,13 +232,21 @@ export default function LinkedInSection() {
                     transition={{ delay: index * 0.1, type: 'spring', stiffness: 100 }}
                     className="text-center"
                   >
-                    <div className="w-12 h-12 glass-card rounded-xl flex items-center justify-center mx-auto mb-3">
-                      <stat.icon className="w-6 h-6 text-neon-cyan" />
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 ${
+                      theme === 'dark' 
+                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600' 
+                        : 'bg-gradient-to-r from-blue-500 to-blue-600'
+                    }`}>
+                      <stat.icon className="w-7 h-7 text-white" />
                     </div>
-                    <div className="text-2xl font-bold gradient-text mb-1">
+                    <div className={`text-2xl font-bold mb-1 transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-cyan-400' : 'text-blue-600'
+                    }`}>
                       {stat.number}
                     </div>
-                    <div className="text-gray-400 text-sm">
+                    <div className={`text-sm transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    }`}>
                       {stat.label}
                     </div>
                   </motion.div>
@@ -170,11 +255,19 @@ export default function LinkedInSection() {
             </div>
 
             {/* Connection CTA */}
-            <div className="glass-card p-8 rounded-3xl">
-              <h4 className="text-xl font-bold text-white mb-4 font-poppins">
+            <div className={`p-8 rounded-3xl transition-all duration-500 ${
+              theme === 'dark' 
+                ? 'bg-gray-800/80 backdrop-blur-md border border-gray-700/50 hover:bg-gray-800/90 hover:border-cyan-400/50 shadow-xl hover:shadow-2xl' 
+                : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:bg-white/90 hover:border-blue-400/50 shadow-lg hover:shadow-xl'
+            }`}>
+              <h4 className={`text-xl font-bold mb-4 font-poppins transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
                 Join Our Professional Network
               </h4>
-              <p className="text-gray-300 mb-6 leading-relaxed">
+              <p className={`mb-6 leading-relaxed transition-colors duration-300 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
                 Connect with automation experts, get exclusive insights, and stay updated 
                 on the latest AI automation trends and success stories.
               </p>
@@ -184,31 +277,47 @@ export default function LinkedInSection() {
                   href="https://linkedin.com/company/your-company"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full btn-primary py-3 rounded-xl text-white font-semibold flex items-center justify-center space-x-2 glow-effect"
+                  className={`w-full py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all duration-300 ${
+                    theme === 'dark'
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-2xl hover:shadow-cyan-500/25'
+                      : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-xl hover:shadow-blue-500/25'
+                  }`}
                 >
                   <Linkedin className="w-5 h-5" />
                   <span>Follow Our Company</span>
+                  <ArrowRight className="w-4 h-4" />
                 </motion.a>
                 
                 <motion.a
                   href="https://linkedin.com/in/your-founder"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full btn-secondary py-3 rounded-xl text-white font-semibold flex items-center justify-center space-x-2"
+                  className={`w-full py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all duration-300 ${
+                    theme === 'dark'
+                      ? 'bg-gray-700/80 hover:bg-gray-700/90 text-white border border-gray-600/50 hover:border-cyan-400/50'
+                      : 'bg-white/80 hover:bg-white/90 text-gray-900 border border-gray-200/50 hover:border-blue-400/50'
+                  }`}
                 >
                   <Users className="w-5 h-5" />
                   <span>Connect with Our Founder</span>
+                  <ArrowRight className="w-4 h-4" />
                 </motion.a>
               </div>
             </div>
 
             {/* LinkedIn Benefits */}
-            <div className="glass-card p-8 rounded-3xl">
-              <h4 className="text-lg font-semibold text-white mb-4">
+            <div className={`p-8 rounded-3xl transition-all duration-500 ${
+              theme === 'dark' 
+                ? 'bg-gray-800/80 backdrop-blur-md border border-gray-700/50 hover:bg-gray-800/90 hover:border-cyan-400/50 shadow-xl hover:shadow-2xl' 
+                : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:bg-white/90 hover:border-blue-400/50 shadow-lg hover:shadow-xl'
+            }`}>
+              <h4 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
                 What You'll Get:
               </h4>
               <div className="space-y-3">
@@ -225,10 +334,16 @@ export default function LinkedInSection() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-center space-x-3"
+                    className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-colors duration-300"
                   >
-                    <div className="w-2 h-2 bg-neon-cyan rounded-full flex-shrink-0" />
-                    <span className="text-gray-300 text-sm">{benefit}</span>
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                      theme === 'dark' 
+                        ? 'bg-cyan-400' 
+                        : 'bg-blue-500'
+                    }`} />
+                    <span className={`text-sm transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>{benefit}</span>
                   </motion.div>
                 ))}
               </div>
@@ -237,5 +352,7 @@ export default function LinkedInSection() {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default LinkedInSection;

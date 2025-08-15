@@ -1,9 +1,11 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { Zap, Mail, Phone, MapPin, Linkedin, Twitter, Youtube, ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
+import { Zap, Mail, Phone, MapPin, Linkedin, Twitter, Youtube, ArrowRight, Star, Shield, Heart } from 'lucide-react';
 
-export default function Footer() {
+const Footer = () => {
+  const { theme } = useTheme();
   const quickLinks = [
     { href: '#services', label: 'Services' },
     { href: '#how-it-works', label: 'How It Works' },
@@ -32,24 +34,52 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative py-16 mt-24">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent" />
+    <footer className={`relative py-20 mt-24 transition-colors duration-500 ${
+      theme === 'dark' 
+        ? 'bg-gradient-to-t from-gray-950 via-gray-900 to-slate-800' 
+        : 'bg-gradient-to-t from-slate-200 via-slate-100 to-slate-50'
+    }`}>
+      
+      {/* Simple Professional Background */}
+      <div className="absolute inset-0">
+        {/* Subtle Accent Lines */}
+        <div className={`absolute top-0 left-0 w-full h-px ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent' 
+            : 'bg-gradient-to-r from-transparent via-blue-500/20 to-transparent'
+        }`} />
+      </div>
       
       <div className="container mx-auto px-6 relative">
         {/* Newsletter Section */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="glass-card p-8 md:p-12 rounded-3xl mb-16"
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className={`p-8 md:p-12 rounded-3xl mb-16 transition-all duration-500 ${
+            theme === 'dark' 
+              ? 'bg-gray-800/80 backdrop-blur-md border border-gray-700/50 hover:bg-gray-800/90 hover:border-cyan-400/50 shadow-2xl' 
+              : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:bg-white/90 hover:border-blue-400/50 shadow-xl'
+          }`}
         >
           <div className="text-center max-w-3xl mx-auto">
-            <h3 className="text-3xl md:text-4xl font-bold gradient-text mb-4">
-              Stay Ahead of the Automation Curve
-            </h3>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <Star className={`w-6 h-6 ${
+                theme === 'dark' ? 'text-cyan-400' : 'text-blue-500'
+              }`} />
+              <h3 className={`text-3xl md:text-4xl font-bold mb-4 transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                Stay Ahead of the Automation Curve
+              </h3>
+              <Star className={`w-6 h-6 ${
+                theme === 'dark' ? 'text-cyan-400' : 'text-blue-500'
+              }`} />
+            </div>
+            <p className={`text-lg mb-8 leading-relaxed transition-colors duration-300 ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}>
               Get weekly insights, case studies, and automation tips delivered to your inbox. 
               Join 5,000+ business leaders who trust our expertise.
             </p>
@@ -58,21 +88,33 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 p-4 glass-card rounded-xl text-white placeholder-gray-400 border border-white/10 focus:border-neon-cyan focus:outline-none transition-colors"
+                className={`flex-1 p-4 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 ${
+                  theme === 'dark'
+                    ? 'bg-gray-700/50 border border-gray-600/50 text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-cyan-400/20'
+                    : 'bg-white/80 border border-gray-200/50 text-gray-900 placeholder-gray-500 focus:border-blue-400 focus:ring-blue-400/20'
+                }`}
               />
               <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-primary px-6 py-4 rounded-xl text-white font-semibold flex items-center justify-center space-x-2 glow-effect"
+                className={`px-6 py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-2xl hover:shadow-cyan-500/25'
+                    : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-xl hover:shadow-blue-500/25'
+                }`}
               >
                 <span>Subscribe</span>
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </div>
             
-            <p className="text-sm text-gray-400 mt-4">
+            <p className={`text-sm mt-4 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            }`}>
               No spam. Unsubscribe at any time. Read our{' '}
-              <a href="/privacy" className="text-neon-cyan hover:underline">
+              <a href="/privacy" className={`hover:underline transition-colors duration-300 ${
+                theme === 'dark' ? 'text-cyan-400' : 'text-blue-600'
+              }`}>
                 Privacy Policy
               </a>
             </p>
@@ -90,36 +132,68 @@ export default function Footer() {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-neon-blue to-neon-purple rounded-xl flex items-center justify-center glow-effect">
-                  <Zap className="w-6 h-6 text-white" />
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg ${
+                  theme === 'dark' 
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600' 
+                    : 'bg-gradient-to-r from-blue-500 to-blue-600'
+                }`}>
+                  <Zap className="w-7 h-7 text-white" />
                 </div>
-                <span className="text-2xl font-poppins font-bold gradient-text">
+                <span className={`text-2xl font-poppins font-bold transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
                   AutomateAI
                 </span>
               </div>
               
-              <p className="text-gray-300 mb-6 leading-relaxed max-w-md">
+              <p className={`mb-6 leading-relaxed max-w-md transition-colors duration-300 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
                 We help businesses automate marketing, digital operations, and custom workflows 
                 with AI. Transform your processes, boost efficiency, and scale without limits.
               </p>
 
               {/* Contact Info */}
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-4 h-4 text-neon-cyan flex-shrink-0" />
-                  <a href="mailto:hello@automateai.com" className="text-gray-300 hover:text-white transition-colors">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                    theme === 'dark' 
+                      ? 'bg-cyan-500/20 text-cyan-400' 
+                      : 'bg-blue-500/20 text-blue-600'
+                  }`}>
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <a href="mailto:hello@automateai.com" className={`hover:underline transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                  }`}>
                     hello@automateai.com
                   </a>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-neon-cyan flex-shrink-0" />
-                  <a href="tel:+1234567890" className="text-gray-300 hover:text-white transition-colors">
+                <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                    theme === 'dark' 
+                      ? 'bg-cyan-500/20 text-cyan-400' 
+                      : 'bg-blue-500/20 text-blue-600'
+                  }`}>
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <a href="tel:+1234567890" className={`hover:underline transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                  }`}>
                     +1 (234) 567-8900
                   </a>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-4 h-4 text-neon-cyan flex-shrink-0" />
-                  <span className="text-gray-300">
+                <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                    theme === 'dark' 
+                      ? 'bg-cyan-500/20 text-cyan-400' 
+                      : 'bg-blue-500/20 text-blue-600'
+                  }`}>
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <span className={`transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
                     San Francisco, CA
                   </span>
                 </div>
@@ -134,13 +208,19 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h4 className="text-white font-semibold mb-6">Quick Links</h4>
+            <h4 className={`font-semibold mb-6 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>Quick Links</h4>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-neon-cyan transition-colors duration-300"
+                    className={`hover:underline transition-colors duration-300 ${
+                      theme === 'dark' 
+                        ? 'text-gray-300 hover:text-cyan-400' 
+                        : 'text-gray-600 hover:text-blue-600'
+                    }`}
                   >
                     {link.label}
                   </a>
@@ -156,13 +236,19 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h4 className="text-white font-semibold mb-6">Services</h4>
+            <h4 className={`font-semibold mb-6 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>Services</h4>
             <ul className="space-y-3">
               {services.map((service, index) => (
                 <li key={index}>
                   <a
                     href={service.href}
-                    className="text-gray-300 hover:text-neon-cyan transition-colors duration-300"
+                    className={`hover:underline transition-colors duration-300 ${
+                      theme === 'dark' 
+                        ? 'text-gray-300 hover:text-cyan-400' 
+                        : 'text-gray-600 hover:text-blue-600'
+                    }`}
                   >
                     {service.label}
                   </a>
@@ -178,13 +264,19 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h4 className="text-white font-semibold mb-6">Resources</h4>
+            <h4 className={`font-semibold mb-6 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>Resources</h4>
             <ul className="space-y-3">
               {resources.map((resource, index) => (
                 <li key={index}>
                   <a
                     href={resource.href}
-                    className="text-gray-300 hover:text-neon-cyan transition-colors duration-300"
+                    className={`hover:underline transition-colors duration-300 ${
+                      theme === 'dark' 
+                        ? 'text-gray-300 hover:text-cyan-400' 
+                        : 'text-gray-600 hover:text-blue-600'
+                    }`}
                   >
                     {resource.label}
                   </a>
@@ -200,25 +292,37 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="border-t border-white/10 pt-8"
+          className={`border-t pt-8 transition-colors duration-300 ${
+            theme === 'dark' ? 'border-white/10' : 'border-gray-200/50'
+          }`}
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Copyright */}
-            <div className="text-gray-400 text-sm">
+            <div className={`text-sm transition-colors duration-300 ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            }`}>
               © 2024 AutomateAI. All rights reserved.
             </div>
 
             {/* Legal Links */}
             <div className="flex items-center space-x-6 text-sm">
-              <a href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <a href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                Terms of Service
-              </a>
-              <a href="/cookies" className="text-gray-400 hover:text-white transition-colors">
-                Cookie Policy
-              </a>
+              {[
+                { href: '/privacy', label: 'Privacy Policy' },
+                { href: '/terms', label: 'Terms of Service' },
+                { href: '/cookies', label: 'Cookie Policy' }
+              ].map((link, index) => (
+                <a 
+                  key={index}
+                  href={link.href} 
+                  className={`hover:underline transition-colors duration-300 ${
+                    theme === 'dark' 
+                      ? 'text-gray-400 hover:text-white' 
+                      : 'text-gray-500 hover:text-gray-900'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
 
             {/* Social Links */}
@@ -229,9 +333,13 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 glass-card rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                    theme === 'dark'
+                      ? 'bg-gray-800/80 border border-gray-700/50 text-gray-400 hover:text-white hover:border-cyan-400/50'
+                      : 'bg-white/80 border border-gray-200/50 text-gray-500 hover:text-blue-600 hover:border-blue-400/50'
+                  }`}
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
@@ -242,5 +350,7 @@ export default function Footer() {
         </motion.div>
       </div>
     </footer>
-  )
-}
+  );
+};
+
+export default Footer;
